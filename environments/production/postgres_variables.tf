@@ -12,7 +12,7 @@ variable "postgres_password" {
 variable "postgres_database" {
   description = "postgresql.database"
   type        = string
-  default     = "hidromatologia"
+  default     = "capyfile"
 }
 
 variable "postgres_replica_count" {

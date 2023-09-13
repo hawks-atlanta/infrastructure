@@ -7,5 +7,5 @@ variable "kubeconfig_path" {
 variable "kube_namespace" {
   description = "Namespace to deploy"
   type        = string
-  default     = "hidromatologia-production"
+  default     = "capyfile-production"
 }

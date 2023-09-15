@@ -15,6 +15,6 @@ module "k8s_authentication" {
   kube_namespace = var.kube_namespace
 
   # Variables
-  replicas         = var.authentication_replicas
-  postgres_dsn     = local.authentication_postgres_dsn
+  replicas     = var.authentication_replicas
+  postgres_dsn = local.authentication_postgres_dsn
 }

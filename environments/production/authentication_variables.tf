@@ -5,5 +5,5 @@ variable "authentication_replicas" {
 }
 
 locals {
-  authentication_postgres_dsn     = "host=postgresql-ha-pgpool user=${var.postgres_username} password=${var.postgres_password} dbname=${var.postgres_database} port=5432 sslmode=disable"
+  authentication_postgres_dsn = "host=postgresql-ha-pgpool user=${var.postgres_username} password=${var.postgres_password} dbname=${var.postgres_database} port=5432 sslmode=disable"
 }

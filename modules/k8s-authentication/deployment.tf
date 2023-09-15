@@ -1,9 +1,4 @@
 resource "kubernetes_deployment" "authentication_deployment" {
-  timeouts {
-    create = "3m"
-    update = "3m"
-    delete = "3m"
-  }
   metadata {
     name = "authentication-deployment"
     labels = {
@@ -34,8 +29,28 @@ resource "kubernetes_deployment" "authentication_deployment" {
           name  = "authentication"
 
           env {
-            name  = "POSTGRES_DSN"
-            value = var.postgres_dsn
+            name  = "DATABASE_ENGINE"
+            value = "postgres"
+          }
+
+          env {
+            name  = "DATABASE_DSN"
+            value_from {
+              secret_key_ref {
+                name = kubernetes_secret.postgres_dsn.metadata.0.name
+                key  = "postgres_dsn_value"
+              }
+            }
+          }
+
+          env {
+            name  = "JWT_SECRET"
+            value_from {
+              secret_key_ref {
+                name = kubernetes_secret.jwt_secret.metadata.0.name
+                key  = "jwt_secret_value"
+              }
+            }
           }
 
           port {

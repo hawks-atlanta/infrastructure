@@ -5,7 +5,7 @@ resource "random_string" "jwt_secret" {
 
 resource "kubernetes_secret" "jwt_secret" {
   metadata {
-    name      = "capyfile-jwt-secret"
+    name      = "authentication-jwt-secret"
     namespace = var.kube_namespace
   }
 

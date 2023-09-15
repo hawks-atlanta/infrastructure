@@ -34,7 +34,7 @@ resource "kubernetes_deployment" "authentication_deployment" {
           }
 
           env {
-            name  = "DATABASE_DSN"
+            name = "DATABASE_DSN"
             value_from {
               secret_key_ref {
                 name = kubernetes_secret.postgres_dsn.metadata.0.name
@@ -44,7 +44,7 @@ resource "kubernetes_deployment" "authentication_deployment" {
           }
 
           env {
-            name  = "JWT_SECRET"
+            name = "JWT_SECRET"
             value_from {
               secret_key_ref {
                 name = kubernetes_secret.jwt_secret.metadata.0.name

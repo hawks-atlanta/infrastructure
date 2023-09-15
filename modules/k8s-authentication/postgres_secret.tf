@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "postgres_dsn" {
   metadata {
-    name      = "capyfile-postgres-dsn"
+    name      = "authentication-postgres-dsn"
     namespace = var.kube_namespace
   }
 

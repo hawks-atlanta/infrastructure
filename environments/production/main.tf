@@ -18,3 +18,16 @@ module "k8s_authentication" {
   replicas     = var.authentication_replicas
   postgres_dsn = local.authentication_postgres_dsn
 }
+
+module "k8s_metadata" {
+  source         = "../../modules/k8s-metadata"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas       = var.metadata_replicas
+  postgres_host  = local.metadata_postgres_host
+  postgres_port  = local.metadata_postgres_port
+  postgres_db    = var.postgres_database
+  postgres_user  = var.postgres_username
+  postgres_passw = var.postgres_password
+}

@@ -17,6 +17,10 @@ module "k8s_authentication" {
   # Variables
   replicas     = var.authentication_replicas
   postgres_dsn = local.authentication_postgres_dsn
+
+  depends_on = [
+    module.helm_postgres
+  ]
 }
 
 module "k8s_metadata" {
@@ -30,4 +34,8 @@ module "k8s_metadata" {
   postgres_db    = var.postgres_database
   postgres_user  = var.postgres_username
   postgres_passw = var.postgres_password
+
+  depends_on = [
+    module.helm_postgres
+  ]
 }

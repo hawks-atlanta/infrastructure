@@ -24,6 +24,11 @@ if (!(where.exe helm) -and !(Test-Path -Path "bin/helm.exe")) {
     rm -Force bin/helm.zip
 }
 
+if (!(where.exe linkerd) -and !(Test-Path -Path "bin/linkerd.exe")) {
+    echo "[*] Downloading Linkerd"
+    wget -o "bin/linkerd.exe" "https://github.com/linkerd/linkerd2/releases/download/edge-23.9.2/linkerd2-cli-edge-23.9.2-windows.exe"
+}
+
 if (!(where.exe terraform)) {
     echo "[*] Downloading terraform"
     wget -o bin/terraform.zip "https://releases.hashicorp.com/terraform/1.5.2/terraform_1.5.2_windows_amd64.zip"

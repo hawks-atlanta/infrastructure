@@ -10,6 +10,25 @@ module "helm_postgres" {
   replica_count = var.postgres_replica_count
 }
 
+# NFS
+module "helm_nfs" {
+  source         = "../../modules/helm-nfs"
+  kube_namespace = var.kube_namespace
+}
+
+module "k8s_worker" {
+  source         = "../../modules/k8s-worker"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  original_1 = module.helm_nfs.original_1
+  backups_1 = module.helm_nfs.backup_1
+
+  depends_on = [
+    module.helm_nfs
+  ]
+}
+
 module "k8s_authentication" {
   source         = "../../modules/k8s-authentication"
   kube_namespace = var.kube_namespace

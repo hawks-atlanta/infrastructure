@@ -24,3 +24,9 @@
 ./linkerd.ps1
 ```
 
+- NFS dependencies per node: (runs on the server)
+
+```shell
+./nfs.sh
+```
+

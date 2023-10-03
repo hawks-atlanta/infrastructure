@@ -21,8 +21,12 @@ module "k8s_worker" {
   kube_namespace = var.kube_namespace
 
   # Variables
+  replicas     = var.worker_replicas
+  metadata_baseurl = module.k8s_metadata.baseurl
+
+  # Volumes
   original_1 = module.helm_nfs.original_1
-  backups_1 = module.helm_nfs.backup_1
+  backups_1  = module.helm_nfs.backup_1
 
   depends_on = [
     module.helm_nfs

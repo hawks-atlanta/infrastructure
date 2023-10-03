@@ -6,7 +6,7 @@ resource "helm_release" "postgresql-ha" {
 
   # Protect it from destroy command
   lifecycle {
-    prevent_destroy = true # var.prevent_destroy
+    #prevent_destroy = true # var.prevent_destroy
   }
 
   # Variables

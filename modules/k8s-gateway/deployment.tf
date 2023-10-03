@@ -40,12 +40,12 @@ resource "kubernetes_deployment" "gateway_deployment" {
           }
 
           env {
-            name = "WORKER_HOST"
+            name  = "WORKER_HOST"
             value = var.worker_host
           }
 
           env {
-            name = "WORKER_PORt"
+            name  = "WORKER_PORT"
             value = var.worker_port
           }
 

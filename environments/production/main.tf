@@ -21,7 +21,7 @@ module "k8s_worker" {
   kube_namespace = var.kube_namespace
 
   # Variables
-  replicas     = var.worker_replicas
+  replicas         = var.worker_replicas
   metadata_baseurl = module.k8s_metadata.baseurl
 
   # Volumes
@@ -29,7 +29,8 @@ module "k8s_worker" {
   backups_1  = module.helm_nfs.backup_1
 
   depends_on = [
-    module.helm_nfs
+    module.helm_nfs,
+    module.k8s_metadata
   ]
 }
 
@@ -60,5 +61,23 @@ module "k8s_metadata" {
 
   depends_on = [
     module.helm_postgres
+  ]
+}
+
+module "k8s_gateway" {
+  source         = "../../modules/k8s-gateway"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas               = var.gateway_replicas
+  authentication_baseurl = module.k8s_authentication.baseurl
+  metadata_baseurl       = module.k8s_metadata.baseurl
+  worker_host            = module.k8s_worker.host
+  worker_port            = module.k8s_worker.port
+
+  depends_on = [
+    module.k8s_worker,
+    module.k8s_authentication,
+    module.k8s_metadata
   ]
 }

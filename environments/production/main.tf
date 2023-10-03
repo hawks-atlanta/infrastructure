@@ -81,3 +81,15 @@ module "k8s_gateway" {
     module.k8s_metadata
   ]
 }
+
+module "k8s_adminer" {
+  source         = "../../modules/k8s-adminer"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas         = 1
+
+  depends_on = [
+    module.helm_postgres
+  ]
+}

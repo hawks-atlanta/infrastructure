@@ -23,7 +23,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
 
     annotations = {
       # "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-stripprefix@kubernetescrd"
-      "kubernetes.io/ingress.class"                      = "traefik"
+      "kubernetes.io/ingress.class" = "traefik"
     }
   }
 
@@ -34,7 +34,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
         path {
           backend {
             service {
-              name   = kubernetes_service.gateway_service.metadata[0].name
+              name = kubernetes_service.gateway_service.metadata[0].name
               port {
                 number = 8080
               }

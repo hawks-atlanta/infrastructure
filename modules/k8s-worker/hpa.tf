@@ -1,4 +1,4 @@
-resource "kubernetes_horizontal_pod_autoscaler" "metadata-hpa" {
+resource "kubernetes_horizontal_pod_autoscaler" "worker-hpa" {
   metadata {
     name      = "worker-hpa"
     namespace = var.kube_namespace

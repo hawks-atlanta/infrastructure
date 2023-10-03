@@ -1,5 +1,5 @@
 resource "helm_release" "postgresql-ha" {
-  name       = "postgresql-ha"
+  name       = "postgresql-ha-${var.name_override}"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql-ha"
   namespace  = var.kube_namespace
@@ -10,6 +10,10 @@ resource "helm_release" "postgresql-ha" {
   }
 
   # Variables
+  set {
+    name = "nameOverride"
+    value = var.name_override
+  }
   set {
     name  = "postgresql.username"
     value = var.username

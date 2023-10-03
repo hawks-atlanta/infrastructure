@@ -3,6 +3,11 @@ variable "kube_namespace" {
   type        = string
 }
 
+variable "name_override" {
+  description = "nameOverride"
+  type        = string
+}
+
 variable "username" {
   description = "postgresql.username"
   type        = string

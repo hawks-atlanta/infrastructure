@@ -1,9 +1,22 @@
 # Postgres
-module "helm_postgres" {
+module "helm_authentication_postgres" {
   source         = "../../modules/helm-postgres"
   kube_namespace = var.kube_namespace
 
   # Variables
+  name_override = "authentication"
+  username      = var.postgres_username
+  password      = var.postgres_password
+  database      = var.postgres_database
+  replica_count = var.postgres_replica_count
+}
+
+module "helm_metadata_postgres" {
+  source         = "../../modules/helm-postgres"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  name_override = "metadata"
   username      = var.postgres_username
   password      = var.postgres_password
   database      = var.postgres_database
@@ -40,10 +53,10 @@ module "k8s_authentication" {
 
   # Variables
   replicas     = var.authentication_replicas
-  postgres_dsn = local.authentication_postgres_dsn
+  postgres_dsn = "host=${module.helm_authentication_postgres.host} user=${var.postgres_username} password=${var.postgres_password} dbname=${var.postgres_database} port=${module.helm_authentication_postgres.port} sslmode=disable"
 
   depends_on = [
-    module.helm_postgres
+    module.helm_authentication_postgres
   ]
 }
 
@@ -53,14 +66,14 @@ module "k8s_metadata" {
 
   # Variables
   replicas       = var.metadata_replicas
-  postgres_host  = local.metadata_postgres_host
-  postgres_port  = local.metadata_postgres_port
+  postgres_host  = module.helm_metadata_postgres.host
+  postgres_port  = module.helm_metadata_postgres.port
   postgres_db    = var.postgres_database
   postgres_user  = var.postgres_username
   postgres_passw = var.postgres_password
 
   depends_on = [
-    module.helm_postgres
+    module.helm_metadata_postgres
   ]
 }
 
@@ -88,8 +101,4 @@ module "k8s_adminer" {
 
   # Variables
   replicas         = 1
-
-  depends_on = [
-    module.helm_postgres
-  ]
 }

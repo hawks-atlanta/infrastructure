@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "worker_deployment" {
 
           volume_mount {
             name       = "volume-1"
-            mount_path = "${local.volume_basepath}/file/volume1"
+            mount_path = "${local.volume_basepath}/files/volume1"
           }
 
           volume_mount {

@@ -40,10 +40,10 @@ resource "kubernetes_persistent_volume_claim" "backup_1" {
 
 output "original_1" {
   description = "Volume 1 (original) name"
-  value = kubernetes_persistent_volume_claim.original_1.metadata[0].name
+  value       = kubernetes_persistent_volume_claim.original_1.metadata[0].name
 }
 
 output "backup_1" {
   description = "Volume 1 (backups) name"
-  value = kubernetes_persistent_volume_claim.backup_1.metadata[0].name
+  value       = kubernetes_persistent_volume_claim.backup_1.metadata[0].name
 }

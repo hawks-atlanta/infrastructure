@@ -10,8 +10,8 @@ resource "kubernetes_service" "worker_service" {
     }
 
     port {
-      port        = 8080
-      target_port = 8080
+      port        = 1099
+      target_port = 1099
     }
 
     type = "ClusterIP"

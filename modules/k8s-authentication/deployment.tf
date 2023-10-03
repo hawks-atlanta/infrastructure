@@ -25,8 +25,9 @@ resource "kubernetes_deployment" "authentication_deployment" {
 
       spec {
         container {
-          image = "ghcr.io/hawks-atlanta/authentication-go:latest"
-          name  = "authentication"
+          image             = "ghcr.io/hawks-atlanta/authentication-go:latest"
+          image_pull_policy = "Always"
+          name              = "authentication"
 
           env {
             name  = "DATABASE_ENGINE"

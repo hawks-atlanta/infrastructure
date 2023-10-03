@@ -25,8 +25,9 @@ resource "kubernetes_deployment" "metadata_deployment" {
 
       spec {
         container {
-          image = "ghcr.io/hawks-atlanta/metadata-scala:latest"
-          name  = "metadata"
+          image             = "ghcr.io/hawks-atlanta/metadata-scala:latest"
+          image_pull_policy = "Always"
+          name              = "metadata"
 
           env {
             name = "DATABASE_HOST"

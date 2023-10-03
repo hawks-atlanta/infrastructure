@@ -9,7 +9,7 @@ resource "kubernetes_manifest" "stripprefix_middleware" {
     }
     "spec" = {
       "stripPrefix" = {
-        "prefixes"   = ["/gw"]
+        "prefixes"   = ["/"]
         "forceSlash" = false
       }
     }
@@ -22,7 +22,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
     namespace = var.kube_namespace
 
     annotations = {
-      "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-stripprefix@kubernetescrd"
+      # "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-stripprefix@kubernetescrd"
       "kubernetes.io/ingress.class"                      = "traefik"
     }
   }
@@ -41,7 +41,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
             }
           }
 
-          path      = "/gw"
+          path      = "/gw/service"
           path_type = "Prefix"
         }
       }

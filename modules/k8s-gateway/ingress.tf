@@ -1,28 +1,9 @@
-
-resource "kubernetes_manifest" "stripprefix_middleware" {
-  manifest = {
-    "apiVersion" = "traefik.containo.us/v1alpha1"
-    "kind"       = "Middleware"
-    "metadata" = {
-      "name"      = "stripprefix"
-      "namespace" = var.kube_namespace
-    }
-    "spec" = {
-      "stripPrefix" = {
-        "prefixes"   = ["/"]
-        "forceSlash" = false
-      }
-    }
-  }
-}
-
 resource "kubernetes_ingress_v1" "gateway_ingress" {
   metadata {
     name      = "gateway-ingress"
     namespace = var.kube_namespace
 
     annotations = {
-      # "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-stripprefix@kubernetescrd"
       "kubernetes.io/ingress.class" = "traefik"
     }
   }
@@ -30,6 +11,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
   spec {
     ingress_class_name = "traefik"
     rule {
+      host = "capyfile1.bucaramanga.upb.edu.co"
       http {
         path {
           backend {

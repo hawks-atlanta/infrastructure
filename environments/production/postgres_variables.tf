@@ -18,5 +18,5 @@ variable "postgres_database" {
 variable "postgres_replica_count" {
   description = "postgresql.replicaCount"
   type        = number
-  default     = 3
+  default     = 2
 }

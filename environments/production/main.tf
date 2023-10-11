@@ -95,6 +95,21 @@ module "k8s_gateway" {
   ]
 }
 
+module "k8s_proxy_net" {
+  source         = "../../modules/k8s-proxy-net"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas               = var.proxy_net_replicas
+  gateway_baseurl = module.k8s_gateway.baseurl 
+
+  depends_on = [
+    module.k8s_worker,
+    module.k8s_authentication,
+    module.k8s_metadata
+  ]
+}
+
 module "k8s_adminer" {
   source         = "../../modules/k8s-adminer"
   kube_namespace = var.kube_namespace

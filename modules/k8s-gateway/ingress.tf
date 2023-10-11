@@ -23,8 +23,7 @@ resource "kubernetes_ingress_v1" "gateway_ingress" {
             }
           }
 
-          #path      = "/gw/service" # TODO: Include me
-          path      = "/service"
+          path      = "/gw/service"
           path_type = "Prefix"
         }
       }

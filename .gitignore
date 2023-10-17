@@ -1,0 +1,5 @@
+k3s.yaml
+bin
+.terraform/
+*.tfstate
+*.tfstate.*

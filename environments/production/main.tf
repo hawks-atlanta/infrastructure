@@ -110,6 +110,35 @@ module "k8s_proxy_net" {
   ]
 }
 
+module "k8s_proxy_python" {
+  source         = "../../modules/k8s-proxy-python"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas               = var.proxy_python_replicas
+  gateway_baseurl = module.k8s_gateway.baseurl 
+
+  depends_on = [
+    module.k8s_worker,
+    module.k8s_authentication,
+    module.k8s_metadata
+  ]
+}
+
+module "k8s_webapp" {
+  source         = "../../modules/k8s-webapp"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas               = var.webapp_replicas
+
+  depends_on = [
+    module.k8s_worker,
+    module.k8s_authentication,
+    module.k8s_metadata
+  ]
+}
+
 module "k8s_adminer" {
   source         = "../../modules/k8s-adminer"
   kube_namespace = var.kube_namespace

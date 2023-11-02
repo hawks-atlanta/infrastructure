@@ -1,27 +1,27 @@
-resource "kubernetes_manifest" "webapp_stripprefix_middleware" {
+resource "kubernetes_manifest" "alt-webapp_stripprefix_middleware" {
   manifest = {
     "apiVersion" = "traefik.containo.us/v1alpha1"
     "kind"       = "Middleware"
     "metadata" = {
-      "name"      = "webapp-stripprefix"
+      "name"      = "alt-webapp-stripprefix"
       "namespace" = var.kube_namespace
     }
     "spec" = {
       "stripPrefix" = {
-        "prefixes"   = ["/12345678909876543212345678900987654321"]
+        "prefixes"   = ["/"]
         "forceSlash" = false
       }
     }
   }
 }
 
-resource "kubernetes_ingress_v1" "webapp_ingress" {
+resource "kubernetes_ingress_v1" "alt-webapp_ingress" {
   metadata {
-    name      = "webapp-ingress"
+    name      = "alt-webapp-ingress"
     namespace = var.kube_namespace
 
     annotations = {
-      "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-webapp-stripprefix@kubernetescrd"
+      "traefik.ingress.kubernetes.io/router.middlewares" = "${var.kube_namespace}-alt-webapp-stripprefix@kubernetescrd"
       "kubernetes.io/ingress.class" = "traefik"
     }
   }
@@ -34,14 +34,14 @@ resource "kubernetes_ingress_v1" "webapp_ingress" {
         path {
           backend {
             service {
-              name = kubernetes_service.webapp_service.metadata[0].name
+              name = kubernetes_service.alt-webapp_service.metadata[0].name
               port {
                 number = 80
               }
             }
           }
 
-          path      = "/12345678909876543212345678900987654321"
+          path      = "/"
           path_type = "Prefix"
         }
       }

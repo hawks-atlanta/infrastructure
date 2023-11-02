@@ -139,6 +139,20 @@ module "k8s_webapp" {
   ]
 }
 
+module "k8s_alt_webapp" {
+  source         = "../../modules/k8s-alt-webapp"
+  kube_namespace = var.kube_namespace
+
+  # Variables
+  replicas               = var.webapp_replicas
+
+  depends_on = [
+    module.k8s_worker,
+    module.k8s_authentication,
+    module.k8s_metadata
+  ]
+}
+
 module "k8s_adminer" {
   source         = "../../modules/k8s-adminer"
   kube_namespace = var.kube_namespace
